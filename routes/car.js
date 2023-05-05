@@ -1,22 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const carController = require('../controllers/carController');
-const { validateRequest } = require('../utils/validateRequest');
-const { validateCar } = require('../utils/validations/carValidation');
 
-// GET /cars
-router.get('/', carController.getAllCars);
+const { carCreateValidation, carUpdateValidation } = require('../utils/validations/carValidation');
+const { validateRequest } = require('../middleware/validationMiddleware');
+const { requireAuth } = require('../middleware/authMiddleware');
+const { createCar, getCarById, getAllCars, updateCarById, deleteCarById } = require('../controllers/car');
 
-// POST /cars
-router.post('/', validateRequest(validateCar), carController.createCar);
+// Routes for creating, getting all, getting by id, updating, and deleting a car
+router.post('/', requireAuth, validateRequest(carCreateValidation), createCar); // create a new car
+router.get('/', requireAuth, getAllCars); // get all cars
+router.get('/:id', requireAuth, getCarById); // get a car by id
+router.patch('/:id', requireAuth, validateRequest(carUpdateValidation), updateCarById); // update a car by id
+router.delete('/:id', requireAuth, deleteCarById); // delete a car by id
 
-// GET /cars/:id
-router.get('/:id', carController.getCarById);
-
-// PUT /cars/:id
-router.put('/:id', validateRequest(validateCar), carController.updateCarById);
-
-// DELETE /cars/:id
-router.delete('/:id', carController.deleteCarById);
 
 module.exports = router;
