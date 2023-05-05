@@ -3,7 +3,6 @@ const yup = require('yup');
 const signupValidation = yup.object().shape({
     name: yup.string().required(),
     email: yup.string().email().required(),
-    password: yup.string().required().min(8),
 });
 
 const loginValidation = yup.object().shape({
