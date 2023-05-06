@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 
+
+//This is auth middleware for checking jwt
 function auth(req, res, next) {
     const token = req.headers.authorization?.split(' ')[1];
 
