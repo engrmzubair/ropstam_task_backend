@@ -9,6 +9,7 @@ module.exports = {
     jwtSecret: process.env.JWT_SECRET || 'mysecretkey',
     jwtExpiresIn: process.env.JWT_EXPIRES_IN || '7d',
     smtpHost: process.env.SMTP_HOST || 'smtp.gmail.com',
+    smtpService: process.env.SMTP_SERVICE || 'gmail',
     smtpPort: process.env.SMTP_PORT || 587,
     smtpUser: process.env.SMTP_USER || 'myemail@gmail.com',
     smtpPassword: process.env.SMTP_PASSWORD || 'mypassword',

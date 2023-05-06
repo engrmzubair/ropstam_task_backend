@@ -21,15 +21,16 @@ async function signup(req, res) {
         const user = new User({ name, email, password: randomPassword });
 
         // Save the user object to the database
-        await user.save();
 
         // Send a welcome email to the user with the randomly generated password
-        const emailSubject = 'Welcome to MERN Stack App';
+        const emailSubject = 'Welcome to Ropstom Testing App';
         const emailBody = `Hi ${name},<br/><br/>
         Thank you for signing up for Ropstom App. Your account has been created successfully.
         Please use the following password to login to your account: <b>${randomPassword}</b><br/><br/>
         Best Regards,<br/>Ropstom Team`;
-        await sendEmail(email, emailSubject, emailBody);
+
+        await sendEmail(email, emailSubject, "", emailBody);
+        await user.save();
 
         return res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {

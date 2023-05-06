@@ -1,7 +1,10 @@
 const nodemailer = require('nodemailer');
 const config = require('../config');
 
+
+
 const transporter = nodemailer.createTransport({
+    service: config.smtpService,
     host: config.smtpHost,
     port: config.smtpPort,
     secure: false, // true for 465, false for other ports
@@ -11,7 +14,8 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-const sendEmail = async ({ to, subject, text, html }) => {
+const sendEmail = async (to, subject, text, html) => {
+
     try {
         const info = await transporter.sendMail({
             from: config.emailFrom,
