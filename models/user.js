@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const cryptoRandomString = require('crypto-random-string');
+const randomstring = require('randomstring');
+
+
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -33,7 +35,7 @@ userSchema.pre('save', async function (next) {
 });
 
 userSchema.statics.generateRandomPassword = function () {
-    return cryptoRandomString({ length: 10, type: 'alphanumeric' });
+    return randomstring.generate(10);
 };
 
 userSchema.methods.comparePassword = async function (candidatePassword, next) {

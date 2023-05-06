@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const { login, signup } = require('../controllers/auth');
-const { validateRequest } = require('../utils/validateRequest');
+const validateRequest = require('../utils/validateRequest');
 const { loginValidation, signupValidation } = require('../utils/validations/userValidation');
 
 // Route to create a user

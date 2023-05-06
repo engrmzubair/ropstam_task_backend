@@ -2,14 +2,14 @@ const express = require('express');
 const router = express.Router();
 
 const { categoryCreateValidation, categoryUpdateValidation } = require('../utils/validations/categoryValidation');
-const { validateRequest } = require('../middleware/validationMiddleware');
-const { requireAuth } = require('../middleware/authMiddleware');
-const { createCategory, getCategories, getCategoryById, updateCategoryById, deleteCategoryById } = require('../controllers/category');
+const validateRequest = require('../utils/validateRequest');
+const requireAuth = require('../middleware/auth');
+const { createCategory, getAllCategories, getCategoryById, updateCategoryById, deleteCategoryById } = require('../controllers/category');
 
-router.post('/', requireAuth, validateRequest(categoryCreateValidation), createCategory);
-router.get('/', requireAuth, getCategories);
+router.post('/create', requireAuth, validateRequest(categoryCreateValidation), createCategory);
+router.get('/', requireAuth, getAllCategories);
 router.get('/:id', requireAuth, getCategoryById);
-router.patch('/:id', requireAuth, validateRequest(categoryUpdateValidation), updateCategoryById);
-router.delete('/:id', requireAuth, deleteCategoryById);
+router.patch('/update/:id', requireAuth, validateRequest(categoryUpdateValidation), updateCategoryById);
+router.delete('/delete/:id', requireAuth, deleteCategoryById);
 
 module.exports = router;
