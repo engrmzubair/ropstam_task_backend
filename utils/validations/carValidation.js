@@ -5,14 +5,16 @@ const carCreateValidation = yup.object().shape({
     color: yup.string().required(),
     model: yup.string().required(),
     make: yup.string().required(),
-    registrationNo: yup.string().required(),
+    year: yup.string().required(),
+    price: yup.number().required()
 });
 const carUpdateValidation = yup.object().shape({
     category: yup.string(),
     color: yup.string(),
     model: yup.string(),
     make: yup.string(),
-    registrationNo: yup.string(),
+    year: yup.string(),
+    price: yup.number(),
 });
 
 module.exports = { carCreateValidation, carUpdateValidation };

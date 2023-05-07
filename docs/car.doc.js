@@ -33,17 +33,97 @@ const CarsResponse = {
 const getCars = {
     tags: ['Car'],
     summary: 'Get all cars',
-    description: 'Retrieve a list of all cars in the database',
+    description: 'Retrieve a paginated list of all cars in the database',
+    parameters: [
+        {
+            name: 'page',
+            in: 'query',
+            description: 'Page number',
+            required: false,
+            schema: {
+                type: 'integer',
+                default: 1
+            }
+        },
+        {
+            name: 'limit',
+            in: 'query',
+            description: 'Number of cars per page',
+            required: false,
+            schema: {
+                type: 'integer',
+                default: 10
+            }
+        },
+        {
+            name: 'category',
+            in: 'query',
+            description: 'Filter by category ID',
+            required: false,
+            schema: {
+                type: 'string'
+            }
+        },
+        {
+            name: 'make',
+            in: 'query',
+            description: 'Filter by car make',
+            required: false,
+            schema: {
+                type: 'string'
+            }
+        },
+        {
+            name: 'model',
+            in: 'query',
+            description: 'Filter by car model',
+            required: false,
+            schema: {
+                type: 'string'
+            }
+        },
+        {
+            name: 'color',
+            in: 'query',
+            description: 'Filter by car color',
+            required: false,
+            schema: {
+                type: 'string'
+            }
+        },
+        {
+            name: 'minPrice',
+            in: 'query',
+            description: 'Filter by minimum car price',
+            required: false,
+            schema: {
+                type: 'integer'
+            }
+        },
+        {
+            name: 'maxPrice',
+            in: 'query',
+            description: 'Filter by maximum car price',
+            required: false,
+            schema: {
+                type: 'integer'
+            }
+        }
+    ],
     responses: {
         '200': {
-            description: 'A list of all cars',
+            description: 'A list of cars retrieved successfully',
             content: {
                 'application/json': {
                     schema: CarsResponse,
                     example: {
                         cars: [
                             {
-                                category: 'Sedan',
+                                _id: '612993679f7489a97b659c25',
+                                category: {
+                                    _id: '612993329f7489a97b659c24',
+                                    name: 'Sedan'
+                                },
                                 make: 'Toyota',
                                 model: 'Camry',
                                 year: 2019,
@@ -51,20 +131,30 @@ const getCars = {
                                 price: 30000
                             },
                             {
-                                category: 'SUV',
+                                _id: '612993e39f7489a97b659c27',
+                                category: {
+                                    _id: '612993329f7489a97b659c24',
+                                    name: 'Sedan'
+                                },
                                 make: 'Honda',
-                                model: 'CR-V',
+                                model: 'Accord',
                                 year: 2020,
-                                color: 'White',
-                                price: 35000
+                                color: 'Black',
+                                price: 32000
                             }
-                        ]
+                        ],
+                        totalCount: 2,
+                        totalPages: 1,
+                        currentPage: 1
                     }
                 }
             }
         },
+        '400': {
+            description: 'Bad Request. Invalid request parameters.'
+        },
         '500': {
-            description: 'Server error occurred while retrieving cars'
+            description: 'Internal server error occurred while retrieving cars'
         }
     }
 }
