@@ -5,7 +5,7 @@ const createCategory = async (req, res, next) => {
     try {
         const { name } = req.body;
 
-        const category = new Category({ name, description });
+        const category = new Category({ name });
         await category.save();
 
         res.status(201).json({ message: 'Category created successfully', category });
@@ -74,13 +74,14 @@ const deleteCategoryById = async (req, res, next) => {
             return res.status(400).json({ message: 'Cannot delete category as it is associated with a car' });
         }
 
-        await category.delete();
+        await category.deleteOne();
 
         res.status(200).json({ message: 'Category deleted successfully' });
     } catch (error) {
         next(error);
     }
 };
+
 
 module.exports = {
     createCategory,
